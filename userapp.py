@@ -117,6 +117,10 @@ class yelp_data_interface(QMainWindow):
                                        f"WHERE business.zipcode = '{zipcode}' "
                                         "GROUP BY categories.category_name "
                                         "ORDER BY num_businesses DESC;")
+            categories_query = ("SELECT DISTINCT categories.category_name "
+                                "FROM business INNER JOIN categories ON business.business_id = categories.business_id "
+                               f"WHERE business.zipcode = '{zipcode}' "
+                                "ORDER BY categories.category_name;")
             try:
                 num_business_result = str(execute_query(query_string=num_business_query)[0][0])
                 self.ui.number_of_businesses.setText(num_business_result)
@@ -142,6 +146,12 @@ class yelp_data_interface(QMainWindow):
                 for i in range (0, len(popular_categories_result), 1):
                     for j in range (0, len(popular_categories_result[i]), 1):
                         self.ui.top_categories.setItem(i, j, QTableWidgetItem(str(popular_categories_result[i][j])))
+            except Exception as e:
+                print(f"ERROR -- zipcode_select_action() -- {e}")
+            try:
+                categories_result = execute_query(query_string=categories_query)
+                for row in categories_result:
+                    self.ui.select_category.addItem(row[0])
             except Exception as e:
                 print(f"ERROR -- zipcode_select_action() -- {e}")
         except:
