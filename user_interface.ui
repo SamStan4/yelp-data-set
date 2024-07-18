@@ -214,22 +214,6 @@
       <string>Average Income:</string>
      </property>
     </widget>
-    <widget class="QListWidget" name="top_categories">
-     <property name="enabled">
-      <bool>false</bool>
-     </property>
-     <property name="geometry">
-      <rect>
-       <x>350</x>
-       <y>50</y>
-       <width>241</width>
-       <height>101</height>
-      </rect>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">background-color: rgb(246, 245, 244);</string>
-     </property>
-    </widget>
     <widget class="QLabel" name="label_11">
      <property name="geometry">
       <rect>
@@ -241,6 +225,19 @@
      </property>
      <property name="text">
       <string>Top Categories:</string>
+     </property>
+    </widget>
+    <widget class="QTableWidget" name="top_categories">
+     <property name="geometry">
+      <rect>
+       <x>360</x>
+       <y>50</y>
+       <width>231</width>
+       <height>101</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(246, 245, 244);</string>
      </property>
     </widget>
    </widget>
