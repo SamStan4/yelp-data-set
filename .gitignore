@@ -1,3 +1,4 @@
 data
 virtual_environment
 private
+__pycache__
