@@ -1,6 +1,10 @@
 import psycopg2
 from private.data_base_details import data_base_info
 
+def sql_clean_string(s : str) -> str:
+    new_string = s.replace("'", "''").replace("\n", " ").replace("\t", "").replace("\t", "")
+    return new_string
+
 def execute_query(query_string : str):
     try:
         conn = psycopg2.connect(

@@ -2,10 +2,7 @@ import json
 from private.data_base_details import data_base_info
 from private.data_base_details import file_paths
 from data_base_interface import execute_insert
-
-def sql_clean_string(s : str) -> str:
-    new_string = s.replace("'", "''").replace("\n", " ").replace("\t", "").replace("\t", "")
-    return new_string
+from data_base_interface import sql_clean_string
 
 def get_attributes(attributes : dict) -> list:
     attribute_list = []
