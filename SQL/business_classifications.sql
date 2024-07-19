@@ -37,4 +37,4 @@ SELECT business_scores.business_id, (
 		THEN 'true' ELSE 'false' END
 	) AS successful
 FROM business_scores INNER JOIN zipcode_score_averages 
-ON business_scores.zipcode = zipcode_score_averages.zipcode;
+ON business_scores.zipcode = zipcode_score_averages.zipcode; 

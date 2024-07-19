@@ -196,7 +196,53 @@ class yelp_data_interface(QMainWindow):
         self.ui.businesses.clear()
 
     def refresh_button_action(self) -> None:
-        print("refresh")
+        self.ui.popular_businesses.clear()
+        self.ui.successful_businesses.clear()
+        try:
+            zipcode = sql_clean_string(str(self.ui.zipcode_select.selectedItems()[0].text()))
+            successful_query = ("SELECT business.name, business.stars, business.review_count, business.num_checkins "
+                                "FROM classifications INNER JOIN business "
+                                "ON classifications.business_id = business.business_id "
+                               f"WHERE business.zipcode = '{zipcode}' AND classifications.successful = 'true' "
+                                "ORDER BY business.name;")
+            popular_query = ("SELECT business.name, business.stars, business.review_count, business.num_checkins "
+                             "FROM classifications INNER JOIN business "
+                             "ON classifications.business_id = business.business_id "
+                            f"WHERE business.zipcode = '{zipcode}' AND classifications.popular = 'true'"
+                             "ORDER BY business.name;")
+            style = "::section {""background-color: #f3f3f3; }"
+            try:
+                successful_result = execute_query(query_string=successful_query)
+                self.ui.successful_businesses.horizontalHeader().setStyleSheet(style)
+                self.ui.successful_businesses.setColumnCount(len(successful_result[0]))
+                self.ui.successful_businesses.setRowCount(len(successful_result))
+                self.ui.successful_businesses.setHorizontalHeaderLabels(['business name', 'stars', 'review\ncount', '# of\ncheckins'])
+                self.ui.successful_businesses.setColumnWidth(0, 200)
+                self.ui.successful_businesses.setColumnWidth(1, 79)
+                self.ui.successful_businesses.setColumnWidth(2, 78)
+                self.ui.successful_businesses.setColumnWidth(3, 78)
+                for i in range(0, len(successful_result), 1):
+                    for j in range(0, len(successful_result[i]), 1):
+                        self.ui.successful_businesses.setItem(i, j, QTableWidgetItem(str(successful_result[i][j])))
+            except Exception as e:
+                print(f"ERROR -- refresh_button_action() -- {e}")
+            try:
+                popular_result = execute_query(query_string=popular_query)
+                self.ui.popular_businesses.horizontalHeader().setStyleSheet(style)
+                self.ui.popular_businesses.setColumnCount(len(popular_result[0]))
+                self.ui.popular_businesses.setRowCount(len(popular_result))
+                self.ui.popular_businesses.setHorizontalHeaderLabels(['business name', 'stars', 'review\ncount', '# of\ncheckins'])
+                self.ui.popular_businesses.setColumnWidth(0, 200)
+                self.ui.popular_businesses.setColumnWidth(1, 79)
+                self.ui.popular_businesses.setColumnWidth(2, 78)
+                self.ui.popular_businesses.setColumnWidth(3, 78)
+                for i in range(0, len(successful_result), 1):
+                    for j in range(0, len(successful_result[i]), 1):
+                        self.ui.popular_businesses.setItem(i, j, QTableWidgetItem(str(successful_result[i][j])))
+            except Exception as e:
+                print(f"ERROR -- refresh_button_action() -- {e}")
+        except:
+            return
 
 def main() -> int:
     app = QApplication(sys.argv)
