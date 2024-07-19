@@ -282,22 +282,6 @@
       <string>Select Category</string>
      </property>
     </widget>
-    <widget class="QListWidget" name="businesses">
-     <property name="enabled">
-      <bool>false</bool>
-     </property>
-     <property name="geometry">
-      <rect>
-       <x>360</x>
-       <y>60</y>
-       <width>721</width>
-       <height>151</height>
-      </rect>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">background-color: rgb(246, 245, 244);</string>
-     </property>
-    </widget>
     <widget class="QPushButton" name="search_button">
      <property name="geometry">
       <rect>
@@ -322,38 +306,6 @@
      </property>
      <property name="text">
       <string>clear</string>
-     </property>
-    </widget>
-    <widget class="QListWidget" name="successful_businesses">
-     <property name="enabled">
-      <bool>false</bool>
-     </property>
-     <property name="geometry">
-      <rect>
-       <x>600</x>
-       <y>240</y>
-       <width>481</width>
-       <height>241</height>
-      </rect>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">background-color: rgb(246, 245, 244);</string>
-     </property>
-    </widget>
-    <widget class="QListWidget" name="popular_businesses">
-     <property name="enabled">
-      <bool>false</bool>
-     </property>
-     <property name="geometry">
-      <rect>
-       <x>110</x>
-       <y>240</y>
-       <width>481</width>
-       <height>241</height>
-      </rect>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">background-color: rgb(246, 245, 244);</string>
      </property>
     </widget>
     <widget class="QPushButton" name="refresh_button">
@@ -406,6 +358,45 @@
      </property>
      <property name="text">
       <string>Businesses</string>
+     </property>
+    </widget>
+    <widget class="QTableWidget" name="businesses">
+     <property name="geometry">
+      <rect>
+       <x>360</x>
+       <y>60</y>
+       <width>721</width>
+       <height>151</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(246, 245, 244);</string>
+     </property>
+    </widget>
+    <widget class="QTableWidget" name="popular_businesses">
+     <property name="geometry">
+      <rect>
+       <x>110</x>
+       <y>240</y>
+       <width>481</width>
+       <height>241</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(246, 245, 244);</string>
+     </property>
+    </widget>
+    <widget class="QTableWidget" name="successful_businesses">
+     <property name="geometry">
+      <rect>
+       <x>600</x>
+       <y>240</y>
+       <width>481</width>
+       <height>241</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(246, 245, 244);</string>
      </property>
     </widget>
    </widget>

@@ -22,6 +22,9 @@ class yelp_data_interface(QMainWindow):
         self.ui.state_select.currentTextChanged.connect(self.state_select_action)
         self.ui.city_select.itemSelectionChanged.connect(self.city_select_action)
         self.ui.zipcode_select.itemSelectionChanged.connect(self.zipcode_select_action)
+        self.ui.search_button.clicked.connect(self.search_button_action)
+        self.ui.clear_button.clicked.connect(self.clear_button_action)
+        self.ui.refresh_button.clicked.connect(self.refresh_button_action)
 
     def load_state_list(self) -> None:
         self.ui.state_select.clear()
@@ -156,6 +159,44 @@ class yelp_data_interface(QMainWindow):
                 print(f"ERROR -- zipcode_select_action() -- {e}")
         except:
             return
+        
+    def search_button_action(self) -> None:
+        try:
+            state = sql_clean_string(str(self.ui.state_select.currentText()))
+            city = sql_clean_string(str(self.ui.city_select.selectedItems()[0].text()))
+            zipcode = sql_clean_string(str(self.ui.zipcode_select.selectedItems()[0].text()))
+            category = sql_clean_string(str(self.ui.select_category.selectedItems()[0].text()))
+            self.ui.businesses.clear()
+            query_str = ("SELECT business.name, business.address, business.city, business.stars, business.review_count, business.num_checkins "
+                         "FROM business INNER JOIN categories ON business.business_id = categories.business_id "
+                        f"WHERE business.state = '{state}' AND business.city = '{city}' AND business.zipcode = '{zipcode}' AND categories.category_name = '{category}' "
+                         "ORDER BY business.name;")
+            try:
+                result = execute_query(query_string=query_str)
+                style = "::section {""background-color: #f3f3f3; }"
+                self.ui.businesses.horizontalHeader().setStyleSheet(style)
+                self.ui.businesses.setColumnCount(len(result[0]))
+                self.ui.businesses.setRowCount(len(result))
+                self.ui.businesses.setHorizontalHeaderLabels(['business name', 'address', 'city', 'stars', 'review\ncount', 'number of\ncheckins'])
+                self.ui.businesses.setColumnWidth(0, 201)
+                self.ui.businesses.setColumnWidth(1, 215)
+                self.ui.businesses.setColumnWidth(2, 100)
+                self.ui.businesses.setColumnWidth(3, 50)
+                self.ui.businesses.setColumnWidth(4, 50)
+                self.ui.businesses.setColumnWidth(5, 75)
+                for i in range (0, len(result), 1):
+                    for j in range (0, len(result[i]), 1):
+                        self.ui.businesses.setItem(i, j, QTableWidgetItem(str(result[i][j])))
+            except Exception as e:
+                print(f"ERROR -- search_button_action() -- {e}")
+        except:
+            return
+
+    def clear_button_action(self) -> None:
+        self.ui.businesses.clear()
+
+    def refresh_button_action(self) -> None:
+        print("refresh")
 
 def main() -> int:
     app = QApplication(sys.argv)
